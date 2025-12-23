@@ -1,0 +1,447 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<project name="Sistema de Gestión de Reclutamiento" company="" web-link="" description="Planeación SCRUM - Inicio: 23/12/2025 - Duración: 3 meses (12 semanas) - Fin: 23/03/2026 - 2 desarrolladores, 4 horas/día cada uno">
+  <view zooming-state="default:2" id="gantt-chart"/>
+  <calendars>
+    <day-types>
+      <day-type id="0"/>
+      <day-type id="1"/>
+    </day-types>
+    <calendar id="1" name="calendario_estandar">
+      <default-week sun="1" mon="0" tue="0" wed="0" thu="0" fri="0" sat="1"/>
+      <overridden-day-types/>
+      <days/>
+    </calendar>
+  </calendars>
+  <tasks>
+    <taskproperties>
+      <taskproperty id="tpd0" name="type" type="default" valuetype="icon"/>
+      <taskproperty id="tpd1" name="priority" type="default" valuetype="icon"/>
+      <taskproperty id="tpd2" name="info" type="default" valuetype="text"/>
+      <taskproperty id="tpd3" name="name" type="default" valuetype="text"/>
+      <taskproperty id="tpd4" name="begindate" type="default" valuetype="date"/>
+      <taskproperty id="tpd5" name="enddate" type="default" valuetype="date"/>
+      <taskproperty id="tpd6" name="duration" type="default" valuetype="int"/>
+      <taskproperty id="tpd7" name="completion" type="default" valuetype="int"/>
+      <taskproperty id="tpd8" name="coordinator" type="default" valuetype="text"/>
+      <taskproperty id="tpd9" name="predecessorsr" type="default" valuetype="text"/>
+    </taskproperties>
+    
+    <!-- SPRINT 1: Fundaciones (Semanas 1-2) -->
+    <task id="0" name="SPRINT 1: Fundaciones" meeting="false" start="2025-12-23" duration="10" complete="0" priority="normal">
+      <customproperty taskproperty-id="tpd2" value="Sprint Goal: Reclutadores pueden crear vacantes y postulantes pueden enviar CV"/>
+      
+      <!-- BACKEND SPRINT 1 -->
+      <task id="1" name="Backend: Autenticación JWT" meeting="false" start="2025-12-23" duration="2" complete="0" priority="normal">
+        <customproperty taskproperty-id="tpd2" value="US-001: Login/autenticación JWT - 8 horas - Persona 1"/>
+      </task>
+      
+      <task id="2" name="Backend: Modelos Base de Datos" meeting="false" start="2025-12-23" duration="2" complete="0" priority="normal">
+        <customproperty taskproperty-id="tpd2" value="US-021: Modelos BD (Vacantes, Candidatos, Postulaciones) - 6 horas - Persona 1"/>
+      </task>
+      
+      <task id="3" name="Backend: CRUD Vacantes (API)" meeting="false" start="2025-12-26" duration="3" complete="0" priority="normal">
+        <depend id="2" hardness="Strong" difference="0"/>
+        <customproperty taskproperty-id="tpd2" value="US-005, US-006, US-007: Crear/Ver/Editar vacantes - 14 horas - Persona 1"/>
+      </task>
+      
+      <task id="4" name="Backend: Recepción Postulaciones + Upload CV" meeting="false" start="2025-12-27" duration="2" complete="0" priority="normal">
+        <depend id="2" hardness="Strong" difference="0"/>
+        <customproperty taskproperty-id="tpd2" value="US-013: Recibir postulación (API + upload CV) - 8 horas - Persona 1"/>
+      </task>
+      
+      <!-- FRONTEND SPRINT 1 -->
+      <task id="5" name="Frontend: Setup Proyecto React" meeting="false" start="2025-12-23" duration="2" complete="0" priority="normal">
+        <customproperty taskproperty-id="tpd2" value="Setup React, estructura, routing - 6 horas - Persona 2"/>
+      </task>
+      
+      <task id="6" name="Frontend: Autenticación UI" meeting="false" start="2025-12-26" duration="2" complete="0" priority="normal">
+        <depend id="5" hardness="Strong" difference="0"/>
+        <customproperty taskproperty-id="tpd2" value="US-001, US-002: Login/Logout UI - 8 horas - Persona 2"/>
+      </task>
+      
+      <task id="7" name="Frontend: Vista Vacantes Públicas" meeting="false" start="2025-12-26" duration="2" complete="0" priority="normal">
+        <depend id="5" hardness="Strong" difference="0"/>
+        <customproperty taskproperty-id="tpd2" value="US-009: Ver vacantes públicas (listado y detalle) - 6 horas - Persona 2"/>
+      </task>
+      
+      <task id="8" name="Frontend: Formulario Postulación + CAPTCHA" meeting="false" start="2025-12-30" duration="2" complete="0" priority="normal">
+        <depend id="7" hardness="Strong" difference="0"/>
+        <customproperty taskproperty-id="tpd2" value="US-014, US-015: Formulario postulación + CAPTCHA - 12 horas - Persona 2"/>
+      </task>
+      
+      <task id="9" name="Integración Frontend-Backend Sprint 1" meeting="false" start="2026-01-06" duration="1" complete="0" priority="normal">
+        <depend id="3" hardness="Strong" difference="0"/>
+        <depend id="4" hardness="Strong" difference="0"/>
+        <depend id="8" hardness="Strong" difference="0"/>
+        <customproperty taskproperty-id="tpd2" value="Integración APIs - 4 horas - Ambos"/>
+      </task>
+    </task>
+    
+    <!-- SPRINT 2: Visualización y Gestión (Semanas 3-4) -->
+    <task id="10" name="SPRINT 2: Visualización y Gestión" meeting="false" start="2026-01-09" duration="10" complete="0" priority="normal">
+      <depend id="9" hardness="Strong" difference="0"/>
+      <customproperty taskproperty-id="tpd2" value="Sprint Goal: Reclutadores pueden ver postulaciones, revisar CVs y cambiar estados"/>
+      
+      <!-- BACKEND SPRINT 2 -->
+      <task id="11" name="Backend: Endpoints Postulaciones y CVs" meeting="false" start="2026-01-09" duration="2" complete="0" priority="normal">
+        <depend id="9" hardness="Strong" difference="0"/>
+        <customproperty taskproperty-id="tpd2" value="US-016, US-017: Ver postulaciones y CVs - 7 horas - Persona 1"/>
+      </task>
+      
+      <task id="12" name="Backend: Extracción Texto PDF" meeting="false" start="2026-01-10" duration="2" complete="0" priority="normal">
+        <depend id="11" hardness="Strong" difference="0"/>
+        <customproperty taskproperty-id="tpd2" value="US-026: Extracción texto de PDF - 5 horas - Persona 1"/>
+      </task>
+      
+      <task id="13" name="Backend: Sistema ATS (Estados)" meeting="false" start="2026-01-13" duration="3" complete="0" priority="normal">
+        <depend id="11" hardness="Strong" difference="0"/>
+        <customproperty taskproperty-id="tpd2" value="US-029, US-030: Sistema estados ATS - 11 horas - Persona 1"/>
+      </task>
+      
+      <task id="14" name="Backend: Búsqueda y Contadores" meeting="false" start="2026-01-14" duration="2" complete="0" priority="normal">
+        <depend id="11" hardness="Strong" difference="0"/>
+        <customproperty taskproperty-id="tpd2" value="US-022, US-040: Búsqueda y contadores - 7 horas - Persona 1"/>
+      </task>
+      
+      <!-- FRONTEND SPRINT 2 -->
+      <task id="15" name="Frontend: Vista Postulaciones Recibidas" meeting="false" start="2026-01-09" duration="2" complete="0" priority="normal">
+        <depend id="9" hardness="Strong" difference="0"/>
+        <customproperty taskproperty-id="tpd2" value="US-016: Listado postulaciones - 6 horas - Persona 2"/>
+      </task>
+      
+      <task id="16" name="Frontend: Vista Detalle Candidato + Visor PDF" meeting="false" start="2026-01-13" duration="2" complete="0" priority="normal">
+        <depend id="15" hardness="Strong" difference="0"/>
+        <customproperty taskproperty-id="tpd2" value="US-017: Vista detalle candidato + visor PDF - 8 horas - Persona 2"/>
+      </task>
+      
+      <task id="17" name="Frontend: Panel ATS y Filtros" meeting="false" start="2026-01-15" duration="2" complete="0" priority="normal">
+        <depend id="15" hardness="Strong" difference="0"/>
+        <customproperty taskproperty-id="tpd2" value="US-029, US-031: Panel ATS y filtros - 10 horas - Persona 2"/>
+      </task>
+      
+      <task id="18" name="Frontend: Dashboard y Búsqueda" meeting="false" start="2026-01-15" duration="2" complete="0" priority="normal">
+        <depend id="15" hardness="Strong" difference="0"/>
+        <customproperty taskproperty-id="tpd2" value="US-022, US-040: Búsqueda, contadores, dashboard - 8 horas - Persona 2"/>
+      </task>
+      
+      <task id="19" name="Integración Frontend-Backend Sprint 2" meeting="false" start="2026-01-20" duration="1" complete="0" priority="normal">
+        <depend id="13" hardness="Strong" difference="0"/>
+        <depend id="14" hardness="Strong" difference="0"/>
+        <depend id="17" hardness="Strong" difference="0"/>
+        <depend id="18" hardness="Strong" difference="0"/>
+        <customproperty taskproperty-id="tpd2" value="Integración APIs - 4 horas - Ambos"/>
+      </task>
+    </task>
+    
+    <!-- SPRINT 3: Mejoras y Extracción (Semanas 5-6) -->
+    <task id="20" name="SPRINT 3: Mejoras y Extracción" meeting="false" start="2026-01-23" duration="10" complete="0" priority="normal">
+      <depend id="19" hardness="Strong" difference="0"/>
+      <customproperty taskproperty-id="tpd2" value="Sprint Goal: Sistema extrae información estructurada de CVs automáticamente"/>
+      
+      <!-- BACKEND SPRINT 3 -->
+      <task id="21" name="Backend: Extracción Estructurada CV" meeting="false" start="2026-01-23" duration="2" complete="0" priority="normal">
+        <depend id="19" hardness="Strong" difference="0"/>
+        <customproperty taskproperty-id="tpd2" value="US-020: Extracción datos estructurados CV - 8 horas - Persona 1"/>
+      </task>
+      
+      <task id="22" name="Backend: Historial Postulaciones" meeting="false" start="2026-01-24" duration="1" complete="0" priority="normal">
+        <depend id="21" hardness="Strong" difference="0"/>
+        <customproperty taskproperty-id="tpd2" value="US-023: Historial postulaciones por candidato - 4 horas - Persona 1"/>
+      </task>
+      
+      <task id="23" name="Backend: Información Estructurada Candidato" meeting="false" start="2026-01-27" duration="1" complete="0" priority="normal">
+        <depend id="21" hardness="Strong" difference="0"/>
+        <customproperty taskproperty-id="tpd2" value="US-025: Endpoint información estructurada - 4 horas - Persona 1"/>
+      </task>
+      
+      <task id="24" name="Backend: Contadores por Estado" meeting="false" start="2026-01-27" duration="1" complete="0" priority="normal">
+        <depend id="19" hardness="Strong" difference="0"/>
+        <customproperty taskproperty-id="tpd2" value="US-041: Contador candidatos por estado - 3 horas - Persona 1"/>
+      </task>
+      
+      <task id="25" name="Backend: Setup OpenRouter + Testing" meeting="false" start="2026-01-28" duration="3" complete="0" priority="normal">
+        <depend id="23" hardness="Strong" difference="0"/>
+        <customproperty taskproperty-id="tpd2" value="Setup OpenRouter, Testing, Refinamiento - 17 horas - Persona 1"/>
+      </task>
+      
+      <!-- FRONTEND SPRINT 3 -->
+      <task id="26" name="Frontend: Mostrar Datos Extraídos CV" meeting="false" start="2026-01-23" duration="2" complete="0" priority="normal">
+        <depend id="19" hardness="Strong" difference="0"/>
+        <customproperty taskproperty-id="tpd2" value="US-020: Mostrar datos extraídos CV - 6 horas - Persona 2"/>
+      </task>
+      
+      <task id="27" name="Frontend: Vista Historial Postulaciones" meeting="false" start="2026-01-27" duration="2" complete="0" priority="normal">
+        <depend id="26" hardness="Strong" difference="0"/>
+        <customproperty taskproperty-id="tpd2" value="US-023: Vista historial postulaciones - 5 horas - Persona 2"/>
+      </task>
+      
+      <task id="28" name="Frontend: Perfil Candidato Mejorado" meeting="false" start="2026-01-28" duration="2" complete="0" priority="normal">
+        <depend id="26" hardness="Strong" difference="0"/>
+        <customproperty taskproperty-id="tpd2" value="US-025: Vista perfil candidato mejorada - 6 horas - Persona 2"/>
+      </task>
+      
+      <task id="29" name="Frontend: Contadores por Estado + Mejoras UI" meeting="false" start="2026-01-29" duration="2" complete="0" priority="normal">
+        <depend id="27" hardness="Strong" difference="0"/>
+        <customproperty taskproperty-id="tpd2" value="US-041: Contadores por estado, Mejoras UI/UX - 10 horas - Persona 2"/>
+      </task>
+      
+      <task id="30" name="Frontend: Testing Básico" meeting="false" start="2026-02-03" duration="2" complete="0" priority="normal">
+        <depend id="28" hardness="Strong" difference="0"/>
+        <depend id="29" hardness="Strong" difference="0"/>
+        <customproperty taskproperty-id="tpd2" value="Testing frontend básico - 5 horas - Persona 2"/>
+      </task>
+      
+      <task id="31" name="Integración Frontend-Backend Sprint 3" meeting="false" start="2026-02-05" duration="1" complete="0" priority="normal">
+        <depend id="25" hardness="Strong" difference="0"/>
+        <depend id="30" hardness="Strong" difference="0"/>
+        <customproperty taskproperty-id="tpd2" value="Integración APIs - 4 horas - Ambos"/>
+      </task>
+    </task>
+    
+    <!-- SPRINT 4: IA y Categorización (Semanas 7-8) -->
+    <task id="32" name="SPRINT 4: IA y Categorización" meeting="false" start="2026-02-06" duration="10" complete="0" priority="normal">
+      <depend id="31" hardness="Strong" difference="0"/>
+      <customproperty taskproperty-id="tpd2" value="Sprint Goal: Sistema ayuda a redactar vacantes con IA y permite categorizar candidatos"/>
+      
+      <!-- BACKEND SPRINT 4 -->
+      <task id="33" name="Backend: Asistente IA Redacción Vacantes" meeting="false" start="2026-02-06" duration="2" complete="0" priority="normal">
+        <depend id="31" hardness="Strong" difference="0"/>
+        <customproperty taskproperty-id="tpd2" value="US-012: Asistente IA para sugerir texto - 8 horas - Persona 1"/>
+      </task>
+      
+      <task id="34" name="Backend: Análisis CV y Matching Score" meeting="false" start="2026-02-10" duration="2" complete="0" priority="normal">
+        <depend id="33" hardness="Strong" difference="0"/>
+        <customproperty taskproperty-id="tpd2" value="US-027: Análisis básico CV y matching score - 6 horas - Persona 1"/>
+      </task>
+      
+      <task id="35" name="Backend: Sistema Tier List" meeting="false" start="2026-02-11" duration="3" complete="0" priority="normal">
+        <depend id="33" hardness="Strong" difference="0"/>
+        <customproperty taskproperty-id="tpd2" value="US-037, US-038: Categorización manual y automática - 10 horas - Persona 1"/>
+      </task>
+      
+      <task id="36" name="Backend: Optimización y Testing IA" meeting="false" start="2026-02-17" duration="2" complete="0" priority="normal">
+        <depend id="34" hardness="Strong" difference="0"/>
+        <depend id="35" hardness="Strong" difference="0"/>
+        <customproperty taskproperty-id="tpd2" value="Optimización performance, Testing IA - 8 horas - Persona 1"/>
+      </task>
+      
+      <!-- FRONTEND SPRINT 4 -->
+      <task id="37" name="Frontend: Interfaz Asistente IA" meeting="false" start="2026-02-06" duration="2" complete="0" priority="normal">
+        <depend id="31" hardness="Strong" difference="0"/>
+        <customproperty taskproperty-id="tpd2" value="US-012: Interfaz asistente IA en creación vacantes - 8 horas - Persona 2"/>
+      </task>
+      
+      <task id="38" name="Frontend: UI Tier List (Categorización)" meeting="false" start="2026-02-10" duration="2" complete="0" priority="normal">
+        <depend id="37" hardness="Strong" difference="0"/>
+        <customproperty taskproperty-id="tpd2" value="US-037: UI categorización manual candidatos - 6 horas - Persona 2"/>
+      </task>
+      
+      <task id="39" name="Frontend: Filtros por Categoría/Tier" meeting="false" start="2026-02-12" duration="1" complete="0" priority="normal">
+        <depend id="38" hardness="Strong" difference="0"/>
+        <customproperty taskproperty-id="tpd2" value="US-039: Filtros por categoría/tier - 4 horas - Persona 2"/>
+      </task>
+      
+      <task id="40" name="Frontend: Integración APIs IA + Mejoras Visuales" meeting="false" start="2026-02-17" duration="2" complete="0" priority="normal">
+        <depend id="37" hardness="Strong" difference="0"/>
+        <depend id="38" hardness="Strong" difference="0"/>
+        <customproperty taskproperty-id="tpd2" value="Integración APIs IA, Mejoras visuales - 9 horas - Persona 2"/>
+      </task>
+      
+      <task id="41" name="Integración Frontend-Backend Sprint 4" meeting="false" start="2026-02-19" duration="1" complete="0" priority="normal">
+        <depend id="36" hardness="Strong" difference="0"/>
+        <depend id="40" hardness="Strong" difference="0"/>
+        <customproperty taskproperty-id="tpd2" value="Integración APIs - 4 horas - Ambos"/>
+      </task>
+    </task>
+    
+    <!-- SPRINT 5: Evaluación por Voz (Semanas 9-10) -->
+    <task id="42" name="SPRINT 5: Evaluación por Voz" meeting="false" start="2026-02-20" duration="10" complete="0" priority="normal">
+      <depend id="41" hardness="Strong" difference="0"/>
+      <customproperty taskproperty-id="tpd2" value="Sprint Goal: Candidatos pueden grabar respuestas de voz (máx 5 preguntas)"/>
+      
+      <!-- BACKEND SPRINT 5 -->
+      <task id="43" name="Backend: Endpoint Recibir Grabaciones Audio" meeting="false" start="2026-02-20" duration="2" complete="0" priority="normal">
+        <depend id="41" hardness="Strong" difference="0"/>
+        <customproperty taskproperty-id="tpd2" value="US-034: Endpoint recibir grabaciones - 5 horas - Persona 1"/>
+      </task>
+      
+      <task id="44" name="Backend: Transcripción Voz a Texto" meeting="false" start="2026-02-24" duration="2" complete="0" priority="normal">
+        <depend id="43" hardness="Strong" difference="0"/>
+        <customproperty taskproperty-id="tpd2" value="US-035: Transcripción con Whisper/OpenRouter - 8 horas - Persona 1"/>
+      </task>
+      
+      <task id="45" name="Backend: Almacenamiento y Procesamiento Asíncrono" meeting="false" start="2026-02-25" duration="2" complete="0" priority="normal">
+        <depend id="43" hardness="Strong" difference="0"/>
+        <customproperty taskproperty-id="tpd2" value="Almacenamiento grabaciones + colas - 9 horas - Persona 1"/>
+      </task>
+      
+      <task id="46" name="Backend: Endpoint Transcripciones + Testing" meeting="false" start="2026-02-26" duration="2" complete="0" priority="normal">
+        <depend id="44" hardness="Strong" difference="0"/>
+        <depend id="45" hardness="Strong" difference="0"/>
+        <customproperty taskproperty-id="tpd2" value="US-036: Endpoint obtener transcripciones, Testing - 7 horas - Persona 1"/>
+      </task>
+      
+      <task id="47" name="Backend: Preparación Deployment" meeting="false" start="2026-03-03" duration="1" complete="0" priority="normal">
+        <depend id="46" hardness="Strong" difference="0"/>
+        <customproperty taskproperty-id="tpd2" value="Preparación deployment - 3 horas - Persona 1"/>
+      </task>
+      
+      <!-- FRONTEND SPRINT 5 -->
+      <task id="48" name="Frontend: Componente Grabación de Voz" meeting="false" start="2026-02-20" duration="2" complete="0" priority="normal">
+        <depend id="41" hardness="Strong" difference="0"/>
+        <customproperty taskproperty-id="tpd2" value="US-034: Componente react-media-recorder - 6 horas - Persona 2"/>
+      </task>
+      
+      <task id="49" name="Frontend: Interfaz Evaluación por Voz (5 preguntas)" meeting="false" start="2026-02-25" duration="2" complete="0" priority="normal">
+        <depend id="48" hardness="Strong" difference="0"/>
+        <customproperty taskproperty-id="tpd2" value="US-034: Interfaz evaluación voz (máx 5 preguntas) - 8 horas - Persona 2"/>
+      </task>
+      
+      <task id="50" name="Frontend: Vista Transcripciones y Reproducción" meeting="false" start="2026-02-26" duration="2" complete="0" priority="normal">
+        <depend id="49" hardness="Strong" difference="0"/>
+        <customproperty taskproperty-id="tpd2" value="US-036: Vista transcripciones, Reproducción audio - 9 horas - Persona 2"/>
+      </task>
+      
+      <task id="51" name="Frontend: Integración APIs Voz + Testing" meeting="false" start="2026-03-03" duration="2" complete="0" priority="normal">
+        <depend id="50" hardness="Strong" difference="0"/>
+        <customproperty taskproperty-id="tpd2" value="Integración APIs voz, Testing - 7 horas - Persona 2"/>
+      </task>
+      
+      <task id="52" name="Integración Frontend-Backend Sprint 5" meeting="false" start="2026-03-05" duration="1" complete="0" priority="normal">
+        <depend id="47" hardness="Strong" difference="0"/>
+        <depend id="51" hardness="Strong" difference="0"/>
+        <customproperty taskproperty-id="tpd2" value="Integración APIs - 4 horas - Ambos"/>
+      </task>
+    </task>
+    
+    <!-- SPRINT 6: Reportes y Deployment (Semanas 11-12) -->
+    <task id="53" name="SPRINT 6: Reportes y Deployment" meeting="false" start="2026-03-06" duration="10" complete="0" priority="normal">
+      <depend id="52" hardness="Strong" difference="0"/>
+      <customproperty taskproperty-id="tpd2" value="Sprint Goal: Sistema tiene reportes visuales y está en producción"/>
+      
+      <!-- BACKEND SPRINT 6 -->
+      <task id="54" name="Backend: Endpoints Datos Gráficas" meeting="false" start="2026-03-06" duration="2" complete="0" priority="normal">
+        <depend id="52" hardness="Strong" difference="0"/>
+        <customproperty taskproperty-id="tpd2" value="US-042, US-043: Endpoints datos gráficas - 7 horas - Persona 1"/>
+      </task>
+      
+      <task id="55" name="Backend: Optimización Final + Testing E2E" meeting="false" start="2026-03-10" duration="2" complete="0" priority="normal">
+        <depend id="54" hardness="Strong" difference="0"/>
+        <customproperty taskproperty-id="tpd2" value="Optimización final, Testing E2E - 10 horas - Persona 1"/>
+      </task>
+      
+      <task id="56" name="Backend: Setup Deployment Producción" meeting="false" start="2026-03-12" duration="2" complete="0" priority="normal">
+        <depend id="55" hardness="Strong" difference="0"/>
+        <customproperty taskproperty-id="tpd2" value="Railway/Render, BD producción, SSL - 9 horas - Persona 1"/>
+      </task>
+      
+      <task id="57" name="Backend: Documentación Final API" meeting="false" start="2026-03-17" duration="1" complete="0" priority="normal">
+        <depend id="56" hardness="Strong" difference="0"/>
+        <customproperty taskproperty-id="tpd2" value="Documentación API final - 4 horas - Persona 1"/>
+      </task>
+      
+      <!-- FRONTEND SPRINT 6 -->
+      <task id="58" name="Frontend: Dashboard Reportes con Gráficas" meeting="false" start="2026-03-06" duration="3" complete="0" priority="normal">
+        <depend id="52" hardness="Strong" difference="0"/>
+        <customproperty taskproperty-id="tpd2" value="US-042, US-043: Gráficas Chart.js - 9 horas - Persona 2"/>
+      </task>
+      
+      <task id="59" name="Frontend: Responsive Design Final" meeting="false" start="2026-03-11" duration="1" complete="0" priority="normal">
+        <depend id="58" hardness="Strong" difference="0"/>
+        <customproperty taskproperty-id="tpd2" value="Responsive design final - 4 horas - Persona 2"/>
+      </task>
+      
+      <task id="60" name="Frontend: Setup Deployment Producción" meeting="false" start="2026-03-12" duration="1" complete="0" priority="normal">
+        <depend id="59" hardness="Strong" difference="0"/>
+        <customproperty taskproperty-id="tpd2" value="Vercel/Netlify, Build producción - 4 horas - Persona 2"/>
+      </task>
+      
+      <task id="61" name="Frontend: Optimización Bundle + Testing Final" meeting="false" start="2026-03-17" duration="2" complete="0" priority="normal">
+        <depend id="60" hardness="Strong" difference="0"/>
+        <customproperty taskproperty-id="tpd2" value="Optimización bundle, Testing final - 7 horas - Persona 2"/>
+      </task>
+      
+      <task id="62" name="Integración Final y Testing Sistema Completo" meeting="false" start="2026-03-19" duration="2" complete="0" priority="normal">
+        <depend id="57" hardness="Strong" difference="0"/>
+        <depend id="61" hardness="Strong" difference="0"/>
+        <customproperty taskproperty-id="tpd2" value="Integración final, Testing sistema completo - 8 horas - Ambos"/>
+      </task>
+    </task>
+  </tasks>
+  
+  <resources>
+    <resource id="1" name="Persona 1 - Backend Developer" function="Desarrollador Backend" contacts=""/>
+    <resource id="2" name="Persona 2 - Frontend Developer" function="Desarrollador Frontend" contacts=""/>
+  </resources>
+  
+  <allocations>
+    <allocation task-id="1" resource-id="1" function="Desarrollador Backend" load="100.0"/>
+    <allocation task-id="2" resource-id="1" function="Desarrollador Backend" load="100.0"/>
+    <allocation task-id="3" resource-id="1" function="Desarrollador Backend" load="100.0"/>
+    <allocation task-id="4" resource-id="1" function="Desarrollador Backend" load="100.0"/>
+    <allocation task-id="5" resource-id="2" function="Desarrollador Frontend" load="100.0"/>
+    <allocation task-id="6" resource-id="2" function="Desarrollador Frontend" load="100.0"/>
+    <allocation task-id="7" resource-id="2" function="Desarrollador Frontend" load="100.0"/>
+    <allocation task-id="8" resource-id="2" function="Desarrollador Frontend" load="100.0"/>
+    <allocation task-id="9" resource-id="1" function="Integración" load="50.0"/>
+    <allocation task-id="9" resource-id="2" function="Integración" load="50.0"/>
+    <allocation task-id="11" resource-id="1" function="Desarrollador Backend" load="100.0"/>
+    <allocation task-id="12" resource-id="1" function="Desarrollador Backend" load="100.0"/>
+    <allocation task-id="13" resource-id="1" function="Desarrollador Backend" load="100.0"/>
+    <allocation task-id="14" resource-id="1" function="Desarrollador Backend" load="100.0"/>
+    <allocation task-id="15" resource-id="2" function="Desarrollador Frontend" load="100.0"/>
+    <allocation task-id="16" resource-id="2" function="Desarrollador Frontend" load="100.0"/>
+    <allocation task-id="17" resource-id="2" function="Desarrollador Frontend" load="100.0"/>
+    <allocation task-id="18" resource-id="2" function="Desarrollador Frontend" load="100.0"/>
+    <allocation task-id="19" resource-id="1" function="Integración" load="50.0"/>
+    <allocation task-id="19" resource-id="2" function="Integración" load="50.0"/>
+    <allocation task-id="21" resource-id="1" function="Desarrollador Backend" load="100.0"/>
+    <allocation task-id="22" resource-id="1" function="Desarrollador Backend" load="100.0"/>
+    <allocation task-id="23" resource-id="1" function="Desarrollador Backend" load="100.0"/>
+    <allocation task-id="24" resource-id="1" function="Desarrollador Backend" load="100.0"/>
+    <allocation task-id="25" resource-id="1" function="Desarrollador Backend" load="100.0"/>
+    <allocation task-id="26" resource-id="2" function="Desarrollador Frontend" load="100.0"/>
+    <allocation task-id="27" resource-id="2" function="Desarrollador Frontend" load="100.0"/>
+    <allocation task-id="28" resource-id="2" function="Desarrollador Frontend" load="100.0"/>
+    <allocation task-id="29" resource-id="2" function="Desarrollador Frontend" load="100.0"/>
+    <allocation task-id="30" resource-id="2" function="Desarrollador Frontend" load="100.0"/>
+    <allocation task-id="31" resource-id="1" function="Integración" load="50.0"/>
+    <allocation task-id="31" resource-id="2" function="Integración" load="50.0"/>
+    <allocation task-id="33" resource-id="1" function="Desarrollador Backend" load="100.0"/>
+    <allocation task-id="34" resource-id="1" function="Desarrollador Backend" load="100.0"/>
+    <allocation task-id="35" resource-id="1" function="Desarrollador Backend" load="100.0"/>
+    <allocation task-id="36" resource-id="1" function="Desarrollador Backend" load="100.0"/>
+    <allocation task-id="37" resource-id="2" function="Desarrollador Frontend" load="100.0"/>
+    <allocation task-id="38" resource-id="2" function="Desarrollador Frontend" load="100.0"/>
+    <allocation task-id="39" resource-id="2" function="Desarrollador Frontend" load="100.0"/>
+    <allocation task-id="40" resource-id="2" function="Desarrollador Frontend" load="100.0"/>
+    <allocation task-id="41" resource-id="1" function="Integración" load="50.0"/>
+    <allocation task-id="41" resource-id="2" function="Integración" load="50.0"/>
+    <allocation task-id="43" resource-id="1" function="Desarrollador Backend" load="100.0"/>
+    <allocation task-id="44" resource-id="1" function="Desarrollador Backend" load="100.0"/>
+    <allocation task-id="45" resource-id="1" function="Desarrollador Backend" load="100.0"/>
+    <allocation task-id="46" resource-id="1" function="Desarrollador Backend" load="100.0"/>
+    <allocation task-id="47" resource-id="1" function="Desarrollador Backend" load="100.0"/>
+    <allocation task-id="48" resource-id="2" function="Desarrollador Frontend" load="100.0"/>
+    <allocation task-id="49" resource-id="2" function="Desarrollador Frontend" load="100.0"/>
+    <allocation task-id="50" resource-id="2" function="Desarrollador Frontend" load="100.0"/>
+    <allocation task-id="51" resource-id="2" function="Desarrollador Frontend" load="100.0"/>
+    <allocation task-id="52" resource-id="1" function="Integración" load="50.0"/>
+    <allocation task-id="52" resource-id="2" function="Integración" load="50.0"/>
+    <allocation task-id="54" resource-id="1" function="Desarrollador Backend" load="100.0"/>
+    <allocation task-id="55" resource-id="1" function="Desarrollador Backend" load="100.0"/>
+    <allocation task-id="56" resource-id="1" function="Desarrollador Backend" load="100.0"/>
+    <allocation task-id="57" resource-id="1" function="Desarrollador Backend" load="100.0"/>
+    <allocation task-id="58" resource-id="2" function="Desarrollador Frontend" load="100.0"/>
+    <allocation task-id="59" resource-id="2" function="Desarrollador Frontend" load="100.0"/>
+    <allocation task-id="60" resource-id="2" function="Desarrollador Frontend" load="100.0"/>
+    <allocation task-id="61" resource-id="2" function="Desarrollador Frontend" load="100.0"/>
+    <allocation task-id="62" resource-id="1" function="Integración Final" load="50.0"/>
+    <allocation task-id="62" resource-id="2" function="Integración Final" load="50.0"/>
+  </allocations>
+  
+  <vacations/>
+  <previous>
+    <task id="0"/>
+  </previous>
+</project>

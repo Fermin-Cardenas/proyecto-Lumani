@@ -1,0 +1,858 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Diagrama de Gantt - Sistema de Gestión de Reclutamiento</title>
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/frappe-gantt@0.6.1/dist/frappe-gantt.css">
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+        
+        body {
+            font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, 'Helvetica Neue', Arial, sans-serif;
+            background: #f5f5f5;
+            padding: 20px;
+        }
+        
+        .container {
+            max-width: 1400px;
+            margin: 0 auto;
+            background: white;
+            padding: 30px;
+            border-radius: 8px;
+            box-shadow: 0 2px 4px rgba(0,0,0,0.1);
+        }
+        
+        h1 {
+            color: #2c3e50;
+            margin-bottom: 10px;
+            font-size: 28px;
+        }
+        
+        .project-info {
+            color: #7f8c8d;
+            margin-bottom: 30px;
+            padding-bottom: 20px;
+            border-bottom: 2px solid #ecf0f1;
+        }
+        
+        .info-item {
+            margin: 5px 0;
+        }
+        
+        .gantt-container {
+            overflow-x: auto;
+            margin-top: 30px;
+        }
+        
+        .legend {
+            margin-top: 30px;
+            padding: 20px;
+            background: #f8f9fa;
+            border-radius: 6px;
+        }
+        
+        .legend h3 {
+            margin-bottom: 15px;
+            color: #2c3e50;
+        }
+        
+        .legend-item {
+            display: inline-block;
+            margin: 5px 15px 5px 0;
+            padding: 5px 10px;
+            border-radius: 4px;
+            font-size: 14px;
+        }
+        
+        .legend-backend {
+            background: #3498db;
+            color: white;
+        }
+        
+        .legend-frontend {
+            background: #e74c3c;
+            color: white;
+        }
+        
+        .legend-integration {
+            background: #9b59b6;
+            color: white;
+        }
+        
+        .legend-sprint {
+            background: #2ecc71;
+            color: white;
+            font-weight: bold;
+        }
+        
+        .controls {
+            margin-bottom: 20px;
+            display: flex;
+            gap: 10px;
+            flex-wrap: wrap;
+        }
+        
+        .btn {
+            padding: 8px 16px;
+            border: none;
+            border-radius: 4px;
+            cursor: pointer;
+            font-size: 14px;
+            background: #3498db;
+            color: white;
+            transition: background 0.3s;
+        }
+        
+        .btn:hover {
+            background: #2980b9;
+        }
+        
+        .btn-reset {
+            background: #95a5a6;
+        }
+        
+        .btn-reset:hover {
+            background: #7f8c8d;
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <h1>📊 Diagrama de Gantt - Sistema de Gestión de Reclutamiento</h1>
+        
+        <div class="project-info">
+            <div class="info-item"><strong>Duración:</strong> 3 meses (12 semanas)</div>
+            <div class="info-item"><strong>Inicio:</strong> 23 de Diciembre 2025</div>
+            <div class="info-item"><strong>Fin:</strong> 23 de Marzo 2026</div>
+            <div class="info-item"><strong>Equipo:</strong> 2 desarrolladores (4 horas/día cada uno)</div>
+            <div class="info-item"><strong>Metodología:</strong> SCRUM (6 sprints de 2 semanas)</div>
+        </div>
+        
+        <div class="controls">
+            <button class="btn" onclick="zoomIn()">🔍 Acercar</button>
+            <button class="btn" onclick="zoomOut()">🔍 Alejar</button>
+            <button class="btn btn-reset" onclick="resetView()">🔄 Reset Vista</button>
+        </div>
+        
+        <div class="gantt-container">
+            <svg id="gantt"></svg>
+        </div>
+        
+        <div class="legend">
+            <h3>Leyenda</h3>
+            <span class="legend-item legend-sprint">Sprint (Épica)</span>
+            <span class="legend-item legend-backend">Backend</span>
+            <span class="legend-item legend-frontend">Frontend</span>
+            <span class="legend-item legend-integration">Integración</span>
+        </div>
+    </div>
+
+    <script src="https://cdn.jsdelivr.net/npm/frappe-gantt@0.6.1/dist/frappe-gantt.min.js"></script>
+    <script>
+        // Datos del proyecto
+        const tasks = [
+            // SPRINT 1: Fundaciones (23 dic 2025 - 6 ene 2026)
+            {
+                id: 'sprint1',
+                name: 'SPRINT 1: Fundaciones',
+                start: '2025-12-23',
+                end: '2026-01-06',
+                progress: 0,
+                custom_class: 'sprint',
+                dependencies: ''
+            },
+            {
+                id: 'task1',
+                name: 'Backend: Autenticación JWT',
+                start: '2025-12-23',
+                end: '2025-12-26',
+                progress: 0,
+                custom_class: 'backend',
+                dependencies: ''
+            },
+            {
+                id: 'task2',
+                name: 'Backend: Modelos Base de Datos',
+                start: '2025-12-23',
+                end: '2025-12-26',
+                progress: 0,
+                custom_class: 'backend',
+                dependencies: ''
+            },
+            {
+                id: 'task3',
+                name: 'Backend: CRUD Vacantes (API)',
+                start: '2025-12-26',
+                end: '2025-12-30',
+                progress: 0,
+                custom_class: 'backend',
+                dependencies: 'task2'
+            },
+            {
+                id: 'task4',
+                name: 'Backend: Recepción Postulaciones + Upload CV',
+                start: '2025-12-27',
+                end: '2025-12-30',
+                progress: 0,
+                custom_class: 'backend',
+                dependencies: 'task2'
+            },
+            {
+                id: 'task5',
+                name: 'Frontend: Setup Proyecto React',
+                start: '2025-12-23',
+                end: '2025-12-26',
+                progress: 0,
+                custom_class: 'frontend',
+                dependencies: ''
+            },
+            {
+                id: 'task6',
+                name: 'Frontend: Autenticación UI',
+                start: '2025-12-26',
+                end: '2025-12-30',
+                progress: 0,
+                custom_class: 'frontend',
+                dependencies: 'task5'
+            },
+            {
+                id: 'task7',
+                name: 'Frontend: Vista Vacantes Públicas',
+                start: '2025-12-26',
+                end: '2025-12-30',
+                progress: 0,
+                custom_class: 'frontend',
+                dependencies: 'task5'
+            },
+            {
+                id: 'task8',
+                name: 'Frontend: Formulario Postulación + CAPTCHA',
+                start: '2025-12-30',
+                end: '2026-01-03',
+                progress: 0,
+                custom_class: 'frontend',
+                dependencies: 'task7'
+            },
+            {
+                id: 'task9',
+                name: 'Integración Frontend-Backend Sprint 1',
+                start: '2026-01-06',
+                end: '2026-01-07',
+                progress: 0,
+                custom_class: 'integration',
+                dependencies: 'task3,task4,task8'
+            },
+            
+            // SPRINT 2: Visualización y Gestión (9 ene 2026 - 20 ene 2026)
+            {
+                id: 'sprint2',
+                name: 'SPRINT 2: Visualización y Gestión',
+                start: '2026-01-09',
+                end: '2026-01-20',
+                progress: 0,
+                custom_class: 'sprint',
+                dependencies: 'task9'
+            },
+            {
+                id: 'task11',
+                name: 'Backend: Endpoints Postulaciones y CVs',
+                start: '2026-01-09',
+                end: '2026-01-10',
+                progress: 0,
+                custom_class: 'backend',
+                dependencies: 'task9'
+            },
+            {
+                id: 'task12',
+                name: 'Backend: Extracción Texto PDF',
+                start: '2026-01-10',
+                end: '2026-01-13',
+                progress: 0,
+                custom_class: 'backend',
+                dependencies: 'task11'
+            },
+            {
+                id: 'task13',
+                name: 'Backend: Sistema ATS (Estados)',
+                start: '2026-01-13',
+                end: '2026-01-17',
+                progress: 0,
+                custom_class: 'backend',
+                dependencies: 'task11'
+            },
+            {
+                id: 'task14',
+                name: 'Backend: Búsqueda y Contadores',
+                start: '2026-01-14',
+                end: '2026-01-16',
+                progress: 0,
+                custom_class: 'backend',
+                dependencies: 'task11'
+            },
+            {
+                id: 'task15',
+                name: 'Frontend: Vista Postulaciones Recibidas',
+                start: '2026-01-09',
+                end: '2026-01-10',
+                progress: 0,
+                custom_class: 'frontend',
+                dependencies: 'task9'
+            },
+            {
+                id: 'task16',
+                name: 'Frontend: Vista Detalle Candidato + Visor PDF',
+                start: '2026-01-13',
+                end: '2026-01-16',
+                progress: 0,
+                custom_class: 'frontend',
+                dependencies: 'task15'
+            },
+            {
+                id: 'task17',
+                name: 'Frontend: Panel ATS y Filtros',
+                start: '2026-01-15',
+                end: '2026-01-17',
+                progress: 0,
+                custom_class: 'frontend',
+                dependencies: 'task15'
+            },
+            {
+                id: 'task18',
+                name: 'Frontend: Dashboard y Búsqueda',
+                start: '2026-01-15',
+                end: '2026-01-17',
+                progress: 0,
+                custom_class: 'frontend',
+                dependencies: 'task15'
+            },
+            {
+                id: 'task19',
+                name: 'Integración Frontend-Backend Sprint 2',
+                start: '2026-01-20',
+                end: '2026-01-21',
+                progress: 0,
+                custom_class: 'integration',
+                dependencies: 'task13,task14,task17,task18'
+            },
+            
+            // SPRINT 3: Mejoras y Extracción (23 ene 2026 - 5 feb 2026)
+            {
+                id: 'sprint3',
+                name: 'SPRINT 3: Mejoras y Extracción',
+                start: '2026-01-23',
+                end: '2026-02-05',
+                progress: 0,
+                custom_class: 'sprint',
+                dependencies: 'task19'
+            },
+            {
+                id: 'task21',
+                name: 'Backend: Extracción Estructurada CV',
+                start: '2026-01-23',
+                end: '2026-01-27',
+                progress: 0,
+                custom_class: 'backend',
+                dependencies: 'task19'
+            },
+            {
+                id: 'task22',
+                name: 'Backend: Historial Postulaciones',
+                start: '2026-01-24',
+                end: '2026-01-27',
+                progress: 0,
+                custom_class: 'backend',
+                dependencies: 'task21'
+            },
+            {
+                id: 'task23',
+                name: 'Backend: Información Estructurada Candidato',
+                start: '2026-01-27',
+                end: '2026-01-28',
+                progress: 0,
+                custom_class: 'backend',
+                dependencies: 'task21'
+            },
+            {
+                id: 'task24',
+                name: 'Backend: Contadores por Estado',
+                start: '2026-01-27',
+                end: '2026-01-28',
+                progress: 0,
+                custom_class: 'backend',
+                dependencies: 'task19'
+            },
+            {
+                id: 'task25',
+                name: 'Backend: Setup OpenRouter + Testing',
+                start: '2026-01-28',
+                end: '2026-02-03',
+                progress: 0,
+                custom_class: 'backend',
+                dependencies: 'task23'
+            },
+            {
+                id: 'task26',
+                name: 'Frontend: Mostrar Datos Extraídos CV',
+                start: '2026-01-23',
+                end: '2026-01-27',
+                progress: 0,
+                custom_class: 'frontend',
+                dependencies: 'task19'
+            },
+            {
+                id: 'task27',
+                name: 'Frontend: Vista Historial Postulaciones',
+                start: '2026-01-27',
+                end: '2026-01-30',
+                progress: 0,
+                custom_class: 'frontend',
+                dependencies: 'task26'
+            },
+            {
+                id: 'task28',
+                name: 'Frontend: Perfil Candidato Mejorado',
+                start: '2026-01-28',
+                end: '2026-01-31',
+                progress: 0,
+                custom_class: 'frontend',
+                dependencies: 'task26'
+            },
+            {
+                id: 'task29',
+                name: 'Frontend: Contadores por Estado + Mejoras UI',
+                start: '2026-01-29',
+                end: '2026-02-03',
+                progress: 0,
+                custom_class: 'frontend',
+                dependencies: 'task27'
+            },
+            {
+                id: 'task30',
+                name: 'Frontend: Testing Básico',
+                start: '2026-02-03',
+                end: '2026-02-05',
+                progress: 0,
+                custom_class: 'frontend',
+                dependencies: 'task28,task29'
+            },
+            {
+                id: 'task31',
+                name: 'Integración Frontend-Backend Sprint 3',
+                start: '2026-02-05',
+                end: '2026-02-06',
+                progress: 0,
+                custom_class: 'integration',
+                dependencies: 'task25,task30'
+            },
+            
+            // SPRINT 4: IA y Categorización (6 feb 2026 - 19 feb 2026)
+            {
+                id: 'sprint4',
+                name: 'SPRINT 4: IA y Categorización',
+                start: '2026-02-06',
+                end: '2026-02-19',
+                progress: 0,
+                custom_class: 'sprint',
+                dependencies: 'task31'
+            },
+            {
+                id: 'task33',
+                name: 'Backend: Asistente IA Redacción Vacantes',
+                start: '2026-02-06',
+                end: '2026-02-10',
+                progress: 0,
+                custom_class: 'backend',
+                dependencies: 'task31'
+            },
+            {
+                id: 'task34',
+                name: 'Backend: Análisis CV y Matching Score',
+                start: '2026-02-10',
+                end: '2026-02-12',
+                progress: 0,
+                custom_class: 'backend',
+                dependencies: 'task33'
+            },
+            {
+                id: 'task35',
+                name: 'Backend: Sistema Tier List',
+                start: '2026-02-11',
+                end: '2026-02-17',
+                progress: 0,
+                custom_class: 'backend',
+                dependencies: 'task33'
+            },
+            {
+                id: 'task36',
+                name: 'Backend: Optimización y Testing IA',
+                start: '2026-02-17',
+                end: '2026-02-19',
+                progress: 0,
+                custom_class: 'backend',
+                dependencies: 'task34,task35'
+            },
+            {
+                id: 'task37',
+                name: 'Frontend: Interfaz Asistente IA',
+                start: '2026-02-06',
+                end: '2026-02-10',
+                progress: 0,
+                custom_class: 'frontend',
+                dependencies: 'task31'
+            },
+            {
+                id: 'task38',
+                name: 'Frontend: UI Tier List (Categorización)',
+                start: '2026-02-10',
+                end: '2026-02-13',
+                progress: 0,
+                custom_class: 'frontend',
+                dependencies: 'task37'
+            },
+            {
+                id: 'task39',
+                name: 'Frontend: Filtros por Categoría/Tier',
+                start: '2026-02-12',
+                end: '2026-02-13',
+                progress: 0,
+                custom_class: 'frontend',
+                dependencies: 'task38'
+            },
+            {
+                id: 'task40',
+                name: 'Frontend: Integración APIs IA + Mejoras Visuales',
+                start: '2026-02-17',
+                end: '2026-02-19',
+                progress: 0,
+                custom_class: 'frontend',
+                dependencies: 'task37,task38'
+            },
+            {
+                id: 'task41',
+                name: 'Integración Frontend-Backend Sprint 4',
+                start: '2026-02-19',
+                end: '2026-02-20',
+                progress: 0,
+                custom_class: 'integration',
+                dependencies: 'task36,task40'
+            },
+            
+            // SPRINT 5: Evaluación por Voz (20 feb 2026 - 5 mar 2026)
+            {
+                id: 'sprint5',
+                name: 'SPRINT 5: Evaluación por Voz',
+                start: '2026-02-20',
+                end: '2026-03-05',
+                progress: 0,
+                custom_class: 'sprint',
+                dependencies: 'task41'
+            },
+            {
+                id: 'task43',
+                name: 'Backend: Endpoint Recibir Grabaciones Audio',
+                start: '2026-02-20',
+                end: '2026-02-24',
+                progress: 0,
+                custom_class: 'backend',
+                dependencies: 'task41'
+            },
+            {
+                id: 'task44',
+                name: 'Backend: Transcripción Voz a Texto',
+                start: '2026-02-24',
+                end: '2026-02-26',
+                progress: 0,
+                custom_class: 'backend',
+                dependencies: 'task43'
+            },
+            {
+                id: 'task45',
+                name: 'Backend: Almacenamiento y Procesamiento Asíncrono',
+                start: '2026-02-25',
+                end: '2026-02-27',
+                progress: 0,
+                custom_class: 'backend',
+                dependencies: 'task43'
+            },
+            {
+                id: 'task46',
+                name: 'Backend: Endpoint Transcripciones + Testing',
+                start: '2026-02-26',
+                end: '2026-03-03',
+                progress: 0,
+                custom_class: 'backend',
+                dependencies: 'task44,task45'
+            },
+            {
+                id: 'task47',
+                name: 'Backend: Preparación Deployment',
+                start: '2026-03-03',
+                end: '2026-03-04',
+                progress: 0,
+                custom_class: 'backend',
+                dependencies: 'task46'
+            },
+            {
+                id: 'task48',
+                name: 'Frontend: Componente Grabación de Voz',
+                start: '2026-02-20',
+                end: '2026-02-24',
+                progress: 0,
+                custom_class: 'frontend',
+                dependencies: 'task41'
+            },
+            {
+                id: 'task49',
+                name: 'Frontend: Interfaz Evaluación por Voz (5 preguntas)',
+                start: '2026-02-25',
+                end: '2026-02-27',
+                progress: 0,
+                custom_class: 'frontend',
+                dependencies: 'task48'
+            },
+            {
+                id: 'task50',
+                name: 'Frontend: Vista Transcripciones y Reproducción',
+                start: '2026-02-26',
+                end: '2026-03-03',
+                progress: 0,
+                custom_class: 'frontend',
+                dependencies: 'task49'
+            },
+            {
+                id: 'task51',
+                name: 'Frontend: Integración APIs Voz + Testing',
+                start: '2026-03-03',
+                end: '2026-03-05',
+                progress: 0,
+                custom_class: 'frontend',
+                dependencies: 'task50'
+            },
+            {
+                id: 'task52',
+                name: 'Integración Frontend-Backend Sprint 5',
+                start: '2026-03-05',
+                end: '2026-03-06',
+                progress: 0,
+                custom_class: 'integration',
+                dependencies: 'task47,task51'
+            },
+            
+            // SPRINT 6: Reportes y Deployment (6 mar 2026 - 21 mar 2026)
+            {
+                id: 'sprint6',
+                name: 'SPRINT 6: Reportes y Deployment',
+                start: '2026-03-06',
+                end: '2026-03-21',
+                progress: 0,
+                custom_class: 'sprint',
+                dependencies: 'task52'
+            },
+            {
+                id: 'task54',
+                name: 'Backend: Endpoints Datos Gráficas',
+                start: '2026-03-06',
+                end: '2026-03-10',
+                progress: 0,
+                custom_class: 'backend',
+                dependencies: 'task52'
+            },
+            {
+                id: 'task55',
+                name: 'Backend: Optimización Final + Testing E2E',
+                start: '2026-03-10',
+                end: '2026-03-12',
+                progress: 0,
+                custom_class: 'backend',
+                dependencies: 'task54'
+            },
+            {
+                id: 'task56',
+                name: 'Backend: Setup Deployment Producción',
+                start: '2026-03-12',
+                end: '2026-03-17',
+                progress: 0,
+                custom_class: 'backend',
+                dependencies: 'task55'
+            },
+            {
+                id: 'task57',
+                name: 'Backend: Documentación Final API',
+                start: '2026-03-17',
+                end: '2026-03-18',
+                progress: 0,
+                custom_class: 'backend',
+                dependencies: 'task56'
+            },
+            {
+                id: 'task58',
+                name: 'Frontend: Dashboard Reportes con Gráficas',
+                start: '2026-03-06',
+                end: '2026-03-11',
+                progress: 0,
+                custom_class: 'frontend',
+                dependencies: 'task52'
+            },
+            {
+                id: 'task59',
+                name: 'Frontend: Responsive Design Final',
+                start: '2026-03-11',
+                end: '2026-03-12',
+                progress: 0,
+                custom_class: 'frontend',
+                dependencies: 'task58'
+            },
+            {
+                id: 'task60',
+                name: 'Frontend: Setup Deployment Producción',
+                start: '2026-03-12',
+                end: '2026-03-13',
+                progress: 0,
+                custom_class: 'frontend',
+                dependencies: 'task59'
+            },
+            {
+                id: 'task61',
+                name: 'Frontend: Optimización Bundle + Testing Final',
+                start: '2026-03-17',
+                end: '2026-03-19',
+                progress: 0,
+                custom_class: 'frontend',
+                dependencies: 'task60'
+            },
+            {
+                id: 'task62',
+                name: 'Integración Final y Testing Sistema Completo',
+                start: '2026-03-19',
+                end: '2026-03-21',
+                progress: 0,
+                custom_class: 'integration',
+                dependencies: 'task57,task61'
+            }
+        ];
+
+        let gantt;
+
+        // Inicializar el diagrama de Gantt
+        function initGantt() {
+            const ganttContainer = document.getElementById('gantt');
+            
+            gantt = new Gantt(ganttContainer, tasks, {
+                header_height: 50,
+                column_width: 30,
+                step: 24,
+                view_modes: ['Quarter Day', 'Half Day', 'Day', 'Week', 'Month'],
+                bar_height: 26,
+                bar_corner_radius: 3,
+                arrow_curve: 5,
+                padding: 18,
+                date_format: 'YYYY-MM-DD',
+                language: 'es',
+                custom_popup_html: function(task) {
+                    return `
+                        <div class="gantt-popup">
+                            <strong>${task.name}</strong><br>
+                            Inicio: ${task._start.toLocaleDateString('es-ES')}<br>
+                            Fin: ${task._end.toLocaleDateString('es-ES')}<br>
+                            Duración: ${task.progress}% completado
+                        </div>
+                    `;
+                },
+                on_click: function(task) {
+                    console.log('Tarea clickeada:', task);
+                },
+                on_date_change: function(task, start, end) {
+                    console.log('Fecha cambiada:', task, start, end);
+                },
+                on_progress_change: function(task, progress) {
+                    console.log('Progreso cambiado:', task, progress);
+                },
+                on_view_change: function(mode) {
+                    console.log('Vista cambiada:', mode);
+                }
+            });
+
+            // Aplicar estilos personalizados
+            applyCustomStyles();
+        }
+
+        // Aplicar estilos personalizados a las barras
+        function applyCustomStyles() {
+            setTimeout(() => {
+                const bars = document.querySelectorAll('.bar-wrapper');
+                bars.forEach(bar => {
+                    const taskId = bar.getAttribute('data-id');
+                    const task = tasks.find(t => t.id === taskId);
+                    
+                    if (task) {
+                        const rect = bar.querySelector('.bar');
+                        if (rect) {
+                            switch(task.custom_class) {
+                                case 'sprint':
+                                    rect.style.fill = '#2ecc71';
+                                    rect.style.stroke = '#27ae60';
+                                    rect.style.strokeWidth = '2';
+                                    break;
+                                case 'backend':
+                                    rect.style.fill = '#3498db';
+                                    rect.style.stroke = '#2980b9';
+                                    break;
+                                case 'frontend':
+                                    rect.style.fill = '#e74c3c';
+                                    rect.style.stroke = '#c0392b';
+                                    break;
+                                case 'integration':
+                                    rect.style.fill = '#9b59b6';
+                                    rect.style.stroke = '#8e44ad';
+                                    break;
+                            }
+                        }
+                        
+                        // Estilo para bar-progress si existe
+                        const progress = bar.querySelector('.bar-progress');
+                        if (progress) {
+                            progress.style.fill = 'rgba(255, 255, 255, 0.3)';
+                        }
+                    }
+                });
+            }, 100);
+        }
+
+        // Funciones de control
+        function zoomIn() {
+            if (gantt) {
+                gantt.change_view_mode('Day');
+            }
+        }
+
+        function zoomOut() {
+            if (gantt) {
+                gantt.change_view_mode('Week');
+            }
+        }
+
+        function resetView() {
+            if (gantt) {
+                gantt.change_view_mode('Week');
+                gantt.scroll_to_date(new Date('2025-12-23'));
+            }
+        }
+
+        // Inicializar cuando la página carga
+        window.addEventListener('DOMContentLoaded', () => {
+            initGantt();
+        });
+
+        // Re-aplicar estilos cuando cambia la vista
+        if (gantt) {
+            gantt.bind('view_change', applyCustomStyles);
+        }
+    </script>
+</body>
+</html>
+
